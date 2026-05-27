@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>餐饮管理系统 API 测试用例表</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: "Microsoft YaHei","PingFang SC",sans-serif; background:#f5f7fa; padding:30px; }
+  .container { max-width:1500px; margin:0 auto; }
+  h1 { text-align:center; font-size:22px; margin-bottom:4px; color:#1a1a2e; }
+  h1 .badge { font-size:13px; background:#00b894; color:#fff; padding:3px 10px; border-radius:4px; margin-left:12px; vertical-align:middle; }
+  .subtitle { text-align:center; font-size:14px; color:#666; margin-bottom:24px; }
+  table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.08); font-size:13px; }
+  thead th { background:#2d3436; color:#fff; padding:12px 10px; font-weight:600; white-space:nowrap; text-align:center; }
+  tbody td { padding:10px; border-bottom:1px solid #eee; vertical-align:middle; line-height:1.7; text-align:center; }
+  tbody tr:hover { background:#f8f9ff; }
+  tbody td:nth-child(5) { text-align:left; font-family:Consolas,"Courier New",monospace; font-size:12px; }
+  tbody td:nth-child(6) { text-align:left; }
+  .tag { display:inline-block; padding:2px 8px; border-radius:3px; font-size:11px; font-weight:600; }
+  .tag-normal { background:#d4edda; color:#155724; }
+  .tag-boundary { background:#fff3cd; color:#856404; }
+  .tag-abnormal { background:#f8d7da; color:#721c24; }
+  .code { background:#f0f0f0; padding:1px 5px; border-radius:2px; font-family:Consolas,monospace; font-size:12px; }
+  .endpoint { font-weight:bold; color:#0984e3; }
+  .footer { text-align:center; margin-top:20px; font-size:12px; color:#999; }
+  td:nth-child(1){ width:55px; font-weight:bold; }
+  td:nth-child(2){ width:60px; }
+  td:nth-child(3){ width:160px; }
+  td:nth-child(4){ width:200px; }
+  td:nth-child(5){ width:300px; }
+  td:nth-child(6){ width:300px; }
+  .legend { display:flex; gap:16px; justify-content:center; margin-bottom:16px; }
+  .legend-item { display:flex; align-items:center; gap:6px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>餐饮管理系统 API 自动化测试用例表 <span class="badge">修改后</span></h1>
+  <p class="subtitle">待测系统：http://localhost:3000 ｜ 认证方式：x-auth-token Header ｜ 测试工具：pytest + requests ｜ 列数：6 列（精简格式，合并登录为fixture）</p>
+
+  <div class="legend">
+    <div class="legend-item"><span class="tag tag-normal">正常</span> 正常用例 8 条</div>
+    <div class="legend-item"><span class="tag tag-boundary">边界</span> 边界用例 4 条</div>
+    <div class="legend-item"><span class="tag tag-abnormal">异常</span> 异常用例 5 条</div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>编号</th>
+        <th>类别</th>
+        <th>测试目标</th>
+        <th>请求方法</th>
+        <th>输入数据</th>
+        <th>预期结果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>TC01</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>正确用户名密码登录</td>
+        <td><span class="endpoint">POST /api/auth/login</span></td>
+        <td>{"username":"admin","password":"admin123"}</td>
+        <td>code=0,返回token</td>
+      </tr>
+      <tr>
+        <td>TC02</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取菜单列表</td>
+        <td><span class="endpoint">GET /api/menu</span></td>
+        <td>无</td>
+        <td>返回菜品数组,非空</td>
+      </tr>
+      <tr>
+        <td>TC03</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取桌台列表</td>
+        <td><span class="endpoint">GET /api/tables</span></td>
+        <td>无</td>
+        <td>返回桌台数组,非空</td>
+      </tr>
+      <tr>
+        <td>TC04</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取仪表盘统计</td>
+        <td><span class="endpoint">GET /api/dashboard/stats</span></td>
+        <td>无</td>
+        <td>含营收/订单/会员数</td>
+      </tr>
+      <tr>
+        <td>TC05</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>添加新菜品</td>
+        <td><span class="endpoint">POST /api/menu</span></td>
+        <td>{"name":"test","category":"热菜","price":25}</td>
+        <td>code=0,返回id</td>
+      </tr>
+      <tr>
+        <td>TC06</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取会员列表</td>
+        <td><span class="endpoint">GET /api/members</span></td>
+        <td>无</td>
+        <td>返回会员数组</td>
+      </tr>
+      <tr>
+        <td>TC07</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取套餐列表</td>
+        <td><span class="endpoint">GET /api/combos</span></td>
+        <td>无</td>
+        <td>返回套餐数组</td>
+      </tr>
+      <tr>
+        <td>TC08</td>
+        <td><span class="tag tag-normal">正常</span></td>
+        <td>获取订单列表</td>
+        <td><span class="endpoint">GET /api/orders</span></td>
+        <td>无</td>
+        <td>返回订单数组</td>
+      </tr>
+      <tr>
+        <td>TC09</td>
+        <td><span class="tag tag-boundary">边界</span></td>
+        <td>空密码登录</td>
+        <td><span class="endpoint">POST /api/auth/login</span></td>
+        <td>{"username":"admin","password":""}</td>
+        <td>HTTP 400,code≠0</td>
+      </tr>
+      <tr>
+        <td>TC10</td>
+        <td><span class="tag tag-boundary">边界</span></td>
+        <td>最小数量下单</td>
+        <td><span class="endpoint">POST /api/orders</span></td>
+        <td>{"tableNum":"A03","items":[{"menuId":1,"qty":1}]}</td>
+        <td>code=0,total&gt;0</td>
+      </tr>
+      <tr>
+        <td>TC11</td>
+        <td><span class="tag tag-boundary">边界</span></td>
+        <td>库存调整归零</td>
+        <td><span class="endpoint">POST /api/inventory/:id/adjust</span></td>
+        <td>{"change":-currentQty}</td>
+        <td>newQuantity=0</td>
+      </tr>
+      <tr>
+        <td>TC12</td>
+        <td><span class="tag tag-boundary">边界</span></td>
+        <td>低库存预警查询</td>
+        <td><span class="endpoint">GET /api/inventory/low-stock</span></td>
+        <td>无</td>
+        <td>返回低于安全线列表</td>
+      </tr>
+      <tr>
+        <td>TC13</td>
+        <td><span class="tag tag-abnormal">异常</span></td>
+        <td>错误密码登录</td>
+        <td><span class="endpoint">POST /api/auth/login</span></td>
+        <td>{"username":"admin","password":"wrong"}</td>
+        <td>HTTP 401,拒绝访问</td>
+      </tr>
+      <tr>
+        <td>TC14</td>
+        <td><span class="tag tag-abnormal">异常</span></td>
+        <td>缺少必填字段（菜单）</td>
+        <td><span class="endpoint">POST /api/menu</span></td>
+        <td>{"category":"热菜","price":20}</td>
+        <td>HTTP 400,code≠0</td>
+      </tr>
+      <tr>
+        <td>TC15</td>
+        <td><span class="tag tag-abnormal">异常</span></td>
+        <td>空菜品下单</td>
+        <td><span class="endpoint">POST /api/orders</span></td>
+        <td>{"tableNum":"A01","items":[]}</td>
+        <td>HTTP 400,code≠0</td>
+      </tr>
+      <tr>
+        <td>TC16</td>
+        <td><span class="tag tag-abnormal">异常</span></td>
+        <td>未认证访问</td>
+        <td><span class="endpoint">GET /api/menu</span></td>
+        <td>无 Token</td>
+        <td>HTTP 401,code=401</td>
+      </tr>
+      <tr>
+        <td>TC17</td>
+        <td><span class="tag tag-abnormal">异常</span></td>
+        <td>空姓名注册会员</td>
+        <td><span class="endpoint">POST /api/members</span></td>
+        <td>{"name":"","phone":""}</td>
+        <td>HTTP 400,code≠0</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="footer">餐饮管理系统 API 测试用例表 ｜ 共计 17 条（正常 8 + 边界 4 + 异常 5） ｜ 生成日期：2026-05-27</p>
+</div>
+</body>
+</html>
