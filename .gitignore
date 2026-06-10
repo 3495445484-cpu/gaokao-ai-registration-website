@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.pyc
+*.log
+logs/
+desktop.ini
+*.docx
+~$*
+manual_screenshots/
+build_*report*.py
+screenshot_commands.txt
+images/
