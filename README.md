@@ -194,7 +194,7 @@ AI 顾问支持的问题包括：
 - pydantic-settings：读取 `.env` 配置
 - DeepSeek API：大模型咨询能力
 - Anthropic API：可选备用模型接入
-- 本地 JSON 数据库：高校、专业、招生网入口等数据
+- SQLite 本地数据库：由 JSON 初始化高校、专业、招生网入口等数据
 - 自定义规则引擎：志愿推荐、风险评估、压力测试
 - 中间件：日志、错误处理、限流、CORS
 
@@ -331,7 +331,15 @@ DeepSeek 配置读取位置：
 - `core/config.py`
 - `core/llm_client.py`
 
-### 3. 启动后端
+### 3. 初始化 SQLite 数据库
+
+```powershell
+python scripts/init_database.py
+```
+
+该命令会根据 `data/*.json` 生成 `data/app.db`，后端优先读取 SQLite 数据库；如果数据库不存在，会自动回退到 JSON 数据。
+
+### 4. 启动后端
 
 ```powershell
 python -m uvicorn main:app --host 127.0.0.1 --port 8000
@@ -343,7 +351,7 @@ python -m uvicorn main:app --host 127.0.0.1 --port 8000
 Invoke-RestMethod http://127.0.0.1:8000/health
 ```
 
-### 4. 打开前端
+### 5. 打开前端
 
 直接用浏览器打开：
 
@@ -369,6 +377,7 @@ http://127.0.0.1:8000
 | `/api/agent/insights` | POST | 学校/专业洞察 |
 | `/api/agent/pressure-test` | POST | 10 年后压力测试 |
 | `/api/agent/analyze` | POST | 深度分析 |
+| `/api/data/database/status` | GET | SQLite 数据库状态 |
 | `/api/data/schools` | GET | 高校数据 |
 | `/api/data/majors` | GET | 专业数据 |
 | `/api/sessions` | GET/POST | 会话列表与创建 |

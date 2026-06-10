@@ -2,9 +2,25 @@ import random
 from fastapi import APIRouter, Query
 
 from core.models import QuoteResponse, MajorItem, SchoolItem
+from data.database import DB_PATH, database_available
 from data import majors, schools, quotes
 
 router = APIRouter(prefix="/data", tags=["data"])
+
+
+@router.get("/database/status")
+async def database_status() -> dict:
+    """查看本地 SQLite 数据库状态"""
+    return {
+        "database": "sqlite",
+        "path": str(DB_PATH),
+        "available": database_available(),
+        "tables": {
+            "schools": len(schools),
+            "majors": len(majors),
+            "quotes": len(quotes),
+        },
+    }
 
 
 @router.get("/quote", response_model=QuoteResponse)
